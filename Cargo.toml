@@ -1,0 +1,19 @@
+[package]
+name = "cl"
+version = "0.1.0"
+edition = "2021"
+
+[features]
+dev_mode = ["bevy/bevy_dev_tools"]
+
+[dependencies]
+bevy = { version = "0.15.0", features = ["dynamic_linking", "bmp", "dds", "wav", "ico"] }
+itertools = "0.13.0"
+# bevy_ecs_tilemap = { version = "0.14.0" }
+log = { version = "*", features = [
+    "max_level_debug",
+    "release_max_level_warn",
+] }
+nom = "7.1.3"
+rand = "0.8.5"
+bevy-inspector-egui = "0.28"
