@@ -43,10 +43,11 @@ pub fn get_viewport_rect(
 
     // let position = camera_transform.translation().xy();
 
-    let _orthoganal_zoom = ortho.scale;
+    // let position = position - Vec2::new(0.0, position.y * 2.0);
+
+    // let orthoganal_zoom = ortho.scale;
 
     // let viewport_size = viewport_size * orthoganal_zoom;
-
     let half_viewport = viewport_size / 2.0;
 
     let viewport_position = camera

@@ -62,7 +62,7 @@ pub fn render_background_wrapped(
                 let tile_index = tile_x * WRAP_AROUND_HEIGHT as u32 + tile_y as u32;
 
                 let image: Handle<Image> =
-                    asset_server.load(format!("sprites/Back.s16#{}", tile_index));
+                    asset_server.load(format!("Images/Back.s16#{}", tile_index));
 
                 let camera_name = if main_camera.is_some() {
                     "Main"
