@@ -1,5 +1,5 @@
 use super::{
-    debug::{draw_rect, draw_surface, DebugTextInfo},
+    debug::{draw_rect, draw_surface},
     utils::{intersect_wrapped_rect, normalize_rect, point_in_wrapped_rect, world_wrap},
     CreaturesGizmos, DebugText,
 };
@@ -79,17 +79,6 @@ fn setup(
     let (_, doc) = formats::sfc::Doc::parse(buf, &mut registry).unwrap();
     let font = asset_server.load("fonts/MS Sans Serif.ttf");
 
-    let debug_text_width = 150.0;
-    let debug_text_height = 180.0;
-
-    commands.spawn(DebugText::new(
-        "Cursor".to_string(),
-        "".to_string(),
-        &font,
-        debug_text_width,
-        debug_text_height,
-    ));
-
     let parent = commands
         .spawn((
             Name::new("Rooms"),
@@ -119,7 +108,7 @@ fn setup(
                 format!("r{}", room.room_id),
                 format!("room id: {}", room.room_id),
                 &font,
-                debug_text_width,
+                room_rect.width(),
                 room_rect.height(),
             ))
             .id();
@@ -253,7 +242,6 @@ pub fn render_gizmo_rooms(
     mut main_camera: Query<(&Camera, &GlobalTransform, &OrthographicProjection), With<MainCamera>>,
     window_query: Query<&Window>,
     mut rooms_query: Query<(&Room, &mut Transform), With<Room>>,
-    mut debug_cursor_text: Query<&mut DebugTextInfo, With<DebugTextInfo>>,
 ) {
     let mut main_camera_lens =
         main_camera.transmute_lens_filtered::<(&Camera, &GlobalTransform), With<MainCamera>>();
@@ -335,33 +323,4 @@ pub fn render_gizmo_rooms(
             }
         }
     }
-
-    debug_cursor_text
-        .iter_mut()
-        .filter(|dct| dct.name == "Cursor")
-        .for_each(|mut dct| {
-            let current_room = if let Some(current_room) = current_room {
-                current_room
-            } else {
-                &Room::default()
-            };
-
-            dct.message = format!(
-                "wx: {} wy: {}\nrn: {} rid: {} type: {}\nroomrect: {:?}\nin_wrapped_rect?: {:?}",
-                world_position.x as i32,
-                world_position.y as i32,
-                room_number(
-                    world_position.x as i32,
-                    world_position.y as i32,
-                    rooms.clone(),
-                ),
-                current_room.room_id,
-                current_room.room_type,
-                current_room.rect,
-                in_wrapped_rect
-            );
-
-            dct.translation.x = world_position.x + 16.0;
-            dct.translation.y = world_position.y - 16.0;
-        });
 }

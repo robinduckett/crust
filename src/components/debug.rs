@@ -97,17 +97,6 @@ pub fn draw_surface(
     gizmos.linestrip_2d(points, color);
 }
 
-pub fn update_debug_text(mut debug_text_query: Query<DebugTextInfoType, ChangedDebugText>) {
-    for (mut text, mut transform, debug_text) in &mut debug_text_query {
-        if debug_text.name == "Cursor" {
-            use bevy::text::TextSpanAccess;
-            *text.write_span() = debug_text.message.clone();
-            transform.translation.x = debug_text.translation.x;
-            transform.translation.y = debug_text.translation.y;
-        }
-    }
-}
-
 pub fn add_debug_text_bg(
     mut commands: Commands,
     debug_text_query: Query<(Entity, &DebugTextInfo), Added<DebugTextInfo>>,

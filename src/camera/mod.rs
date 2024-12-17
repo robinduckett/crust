@@ -2,7 +2,6 @@ pub mod creature_eye_view;
 pub mod main_camera;
 
 use bevy::{
-    color::palettes::tailwind::GRAY_200,
     input::common_conditions::input_just_pressed,
     prelude::*,
     render::{
@@ -107,33 +106,33 @@ pub fn setup(
     //     },
     // ));
 
-    commands
-        .spawn((
-            Node {
-                display: Display::Flex,
-                position_type: PositionType::Relative,
-                left: Val::Px(10.0),
-                top: Val::Px(10.0),
-                width: Val::Px(128.0),
-                height: Val::Px(128.0),
-                padding: UiRect::new(Val::Px(5.0), Val::Px(5.0), Val::Px(5.0), Val::Px(5.0)),
-                ..Default::default()
-            },
-            BackgroundColor(GRAY_200.into()),
-            BorderRadius::new(Val::Px(5.), Val::Px(5.), Val::Px(5.), Val::Px(5.)),
-            CreatureEyeView,
-            Name::new("CreatureEyeView"),
-        ))
-        .with_children(|parent| {
-            parent
-                .spawn((
-                    ImageNode::new(camera_eye_view_texture.clone()),
-                    BorderRadius::new(Val::Px(5.), Val::Px(5.), Val::Px(5.), Val::Px(5.)),
-                ))
-                .with_children(|parent| {
-                    parent.spawn((ImageNode::new(asset_server.load("sprites/bubb.s16#0")),));
-                });
-        });
+    // commands
+    //     .spawn((
+    //         Node {
+    //             display: Display::Flex,
+    //             position_type: PositionType::Relative,
+    //             left: Val::Px(10.0),
+    //             top: Val::Px(10.0),
+    //             width: Val::Px(128.0),
+    //             height: Val::Px(128.0),
+    //             padding: UiRect::new(Val::Px(5.0), Val::Px(5.0), Val::Px(5.0), Val::Px(5.0)),
+    //             ..Default::default()
+    //         },
+    //         BackgroundColor(GRAY_200.into()),
+    //         BorderRadius::new(Val::Px(5.), Val::Px(5.), Val::Px(5.), Val::Px(5.)),
+    //         CreatureEyeView,
+    //         Name::new("CreatureEyeView"),
+    //     ))
+    //     .with_children(|parent| {
+    //         parent
+    //             .spawn((
+    //                 ImageNode::new(camera_eye_view_texture.clone()),
+    //                 BorderRadius::new(Val::Px(5.), Val::Px(5.), Val::Px(5.), Val::Px(5.)),
+    //             ))
+    //             .with_children(|parent| {
+    //                 parent.spawn((ImageNode::new(asset_server.load("Images/bubb.s16#0")),));
+    //             });
+    //     });
 }
 
 pub fn wrap_cameras(
